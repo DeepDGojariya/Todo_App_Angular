@@ -5,11 +5,11 @@
         <th>Actions</th>
     </thead>
     <ng-container *ngFor="let todo of todoArray">
-        <tr class="table-dark">
+        <tr class="table">
             <td>{{todo.title}}</td>
             <td>{{todo.description}}</td>
             <td>
-                <button class="btn btn-outline-info" (click)="todoService.populateForm(todo)">Edit</button>
+                <button class="btn btn-outline-info mx-2" (click)="todoService.populateForm(todo)">Edit</button>
                 <button class="btn btn-outline-danger" (click)="onDelete(todo.$key)">Delete</button>
             </td>
         </tr>

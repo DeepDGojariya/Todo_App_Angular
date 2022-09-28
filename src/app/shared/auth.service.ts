@@ -12,8 +12,9 @@ export class AuthService {
   login(email:string,password:string){
     this.fireauth.signInWithEmailAndPassword(email,password).then(()=>{
       localStorage.setItem('token','true')
-      this.router.navigate(['todo'])
-      setTimeout(()=>{window.location.reload()},1000)
+      this.getCurrentUser()
+      this.router.navigate(['/todo'])
+      // setTimeout(()=>{window.location.reload()},1000)
       
     },(err)=>{
       alert('Something Went Wrong')
@@ -25,8 +26,8 @@ export class AuthService {
   register(email:string,password:string){
     this.fireauth.createUserWithEmailAndPassword(email,password).then(()=>{
       localStorage.setItem('token','true')
-      this.router.navigate(['todo'])
-      setTimeout(()=>{window.location.reload()},1000)
+      this.router.navigate(['/todo'])
+      // setTimeout(()=>{window.location.reload()},1000)
     },(err)=>{
       alert('Something Went Wrong')
       console.log(err)
@@ -37,9 +38,9 @@ export class AuthService {
   signout(){
     this.fireauth.signOut().then(()=>{
       localStorage.setItem('token','false')
-      // localStorage.setItem('currentUser','')
+      localStorage.setItem('currentUser','')
       this.router.navigate(['/login'])
-      setTimeout(()=>{window.location.reload()},1000)
+      // setTimeout(()=>{window.location.reload()},1000)
     },(err)=>{
       alert('Something Went Wrong')
       console.log(err)
@@ -47,7 +48,7 @@ export class AuthService {
     })
   }
 
-  // getCurrentUser(){
-  //   this.fireauth.authState.subscribe((user:any)=>{localStorage.setItem('currentUser',user.email)})
-  // }
+  getCurrentUser(){
+    this.fireauth.authState.subscribe((user:any)=>{localStorage.setItem('currentUser',user.email)})
+  }
 }

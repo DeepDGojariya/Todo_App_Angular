@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
 import { TodoService } from '../shared/todo.service';
 
@@ -15,10 +15,13 @@ export class TodoComponent implements OnInit {
   formControls= this.todoService.form.controls
   currentUser:any
   ngOnInit(): void {
-    // this.authService.getCurrentUser()
-    // this.currentUser = localStorage.getItem('currentUser')
+    this.authService.getCurrentUser()
+    this.currentUser = localStorage.getItem('currentUser')
     
   }
+
+  
+  
 
   
 
@@ -28,11 +31,11 @@ export class TodoComponent implements OnInit {
     if(this.todoService.form.valid){
       // console.log(this.todoService.form.get('$key'))
       if(this.todoService.form.get('$key')?.value===null){
-        console.log("if")
+        // console.log("if")
         this.todoService.insertTodo(this.todoService.form.value)
       }
       else{
-        console.log("else")
+        // console.log("else")
         this.todoService.updateTodo(this.todoService.form.value)
       }
       this.showSuccessMessage = true
@@ -42,6 +45,7 @@ export class TodoComponent implements OnInit {
       //this is to be done for proper reset operation
       this.todoService.form.setValue({
         $key: null,
+        user:this.currentUser,
         title: '',
         description: '',
         
